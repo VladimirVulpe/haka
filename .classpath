@@ -20,6 +20,19 @@
 	<classpathentry kind="lib" path="web/WEB-INF/lib/log4j-1.2.17.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
 	<classpathentry exported="true" kind="lib" path="C:/Users/Walter/Downloads/javax.servlet-api-3.1.0.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/Walter/Downloads/mapcode-1.40.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Walter/Downloads/mapcode-1.40.jar" sourcepath="/mapcode-java"/>
+	<classpathentry kind="lib" path="/mapcode-java"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Walter/Downloads/slf4j-api-1.7.7.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Walter/Downloads/slf4j-ext-1.7.7.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Walter/Downloads/slf4j-log4j12-1.7.7.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Walter/Downloads/slf4j-migrator-1.7.7.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Walter/Downloads/sanselan-0.97-incubator.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Walter/Downloads/sanselan-0.97-incubator-javadoc.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Walter/Downloads/sanselan-0.97-incubator-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Walter/Downloads/commons-io-2.4.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Walter/Downloads/commons-io-2.4-javadoc.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Walter/Downloads/commons-io-2.4-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Walter/Downloads/commons-io-2.4-tests.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Walter/Downloads/commons-io-2.4-test-sources.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

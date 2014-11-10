@@ -21,10 +21,18 @@
 package org.wahlzeit.model;
 
 import java.sql.*;
+import java.util.List;
 import java.net.*;
 
+import org.wahlzeit.location.LocationCode;
+import org.wahlzeit.location.ReleaseLocation;
 import org.wahlzeit.services.*;
 import org.wahlzeit.utils.*;
+
+import com.mapcode.Mapcode;
+
+import java.io.Console;
+import java.util.*;
 
 /**
  * A photo represents a user-provided (uploaded) photo.
@@ -96,6 +104,12 @@ public class Photo extends DataObject {
 	 */
 	protected PhotoStatus status = PhotoStatus.VISIBLE;
 	
+	
+	/**
+	 * 
+	 */
+	protected String location = new Scanner(System.in).nextLine(); 
+	
 	/**
 	 * 
 	 */
@@ -161,12 +175,15 @@ public class Photo extends DataObject {
 		tags = new Tags(rset.getString("tags"));
 
 		status = PhotoStatus.getFromInt(rset.getInt("status"));
+		location = rset.getString("location"); // get location data from db
 		praiseSum = rset.getInt("praise_sum");
 		noVotes = rset.getInt("no_votes");
 
 		creationTime = rset.getLong("creation_time");
 
 		maxPhotoSize = PhotoSize.getFromWidthHeight(width, height);
+		
+		
 	}
 	
 	/**
@@ -186,7 +203,8 @@ public class Photo extends DataObject {
 		rset.updateInt("status", status.asInt());
 		rset.updateInt("praise_sum", praiseSum);
 		rset.updateInt("no_votes", noVotes);
-		rset.updateLong("creation_time", creationTime);		
+		rset.updateLong("creation_time", creationTime);	
+		rset.updateString("location", getLocation()); // update location data
 	}
 
 	/**
@@ -471,6 +489,25 @@ public class Photo extends DataObject {
 	public void setTags(Tags newTags) {
 		tags = newTags;
 		incWriteCount();
+	}
+	
+	
+	/**
+	 * 
+	 * @methodtype get
+	 */
+	public String getLocation() {
+		return new ReleaseLocation(this.location).getLocationCode();
+	}
+
+	
+	/**
+	 * 
+	 * @methodtype set
+	 */
+	public void setLocation(String location) {
+		this.location = location;
+		incWriteCount(); 
 	}
 	
 	/**
