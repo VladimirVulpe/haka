@@ -58,6 +58,15 @@ public class UploadPhotoFormHandler extends AbstractWebFormHandler {
 	protected String doHandlePost(UserSession us, Map args) {
 		String tags = us.getAndSaveAsString(args, Photo.TAGS);
 
+		double latitude, longitude; 
+		
+		latitude = Double.parseDouble(us.getAndSaveAsString(args, Photo.LOCATION));
+		
+//		System.out.println();
+//		System.out.wait();
+		
+		
+		
 		if (!StringUtil.isLegalTagsString(tags)) {
 			us.setMessage(us.cfg().getInputIsInvalid());
 			return PartUtil.UPLOAD_PHOTO_PAGE_NAME;
@@ -76,7 +85,14 @@ public class UploadPhotoFormHandler extends AbstractWebFormHandler {
 			user.addPhoto(photo); 
 			
 			photo.setTags(new Tags(tags));
+			
+			/**
+			 * TO DO
+			 * location
+			 */
+//			photo.setLocation("MOZ 23DD.4Z4");
 
+			doHandleHakaPhoto(photo, us, args);
 			pm.savePhoto(photo);
 
 			StringBuffer sb = UserLog.createActionEntry("UploadPhoto");
@@ -92,6 +108,8 @@ public class UploadPhotoFormHandler extends AbstractWebFormHandler {
 		return PartUtil.UPLOAD_PHOTO_PAGE_NAME;
 	}
 	
+	
+	
 	/**
 	 * 
 	 */
@@ -106,5 +124,10 @@ public class UploadPhotoFormHandler extends AbstractWebFormHandler {
 			SysLog.logSysInfo("could not create backup file of photo");
 			SysLog.logThrowable(ex);			
 		}
+	}
+	
+	
+	private void doHandleHakaPhoto (Photo photo, UserSession us, Map args){
+		
 	}
 }

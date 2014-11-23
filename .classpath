@@ -32,7 +32,5 @@
 	<classpathentry exported="true" kind="lib" path="C:/Users/Walter/Downloads/commons-io-2.4.jar"/>
 	<classpathentry exported="true" kind="lib" path="C:/Users/Walter/Downloads/commons-io-2.4-javadoc.jar"/>
 	<classpathentry exported="true" kind="lib" path="C:/Users/Walter/Downloads/commons-io-2.4-sources.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/Walter/Downloads/commons-io-2.4-tests.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/Walter/Downloads/commons-io-2.4-test-sources.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

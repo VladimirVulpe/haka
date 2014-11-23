@@ -30,8 +30,17 @@ CREATE TABLE photos (
 	praise_sum integer,
 	no_votes integer,
 	creation_time bigint,	
-	location text
+	location text,
+	version text,
+	nickname text, 
+	stadium text, 
+	leader text, 
+	captain text, 
+	teammembers text, 
+	opponent text, 
+	words text
 );
+
 
 CREATE TABLE tags (
 	tag text,
