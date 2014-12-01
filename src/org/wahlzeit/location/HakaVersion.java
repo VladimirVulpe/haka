@@ -13,6 +13,7 @@ public enum HakaVersion {
 
 	private HakaVersion(String s) {
 		name = s;
+<<<<<<< HEAD
 		
 		assertInvariants();
 	}
@@ -27,6 +28,16 @@ public enum HakaVersion {
 	
 	private void assertInvariants() {
 		assert name != null;
+=======
+	}
+
+	public boolean equalsName(String otherName) {
+		return (otherName == null) ? false : name.equals(otherName);
+	}
+
+	public String toString() {
+		return name;
+>>>>>>> branch 'master' of https://github.com/VladimirVulpe/haka
 	}
 
 }

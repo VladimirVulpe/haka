@@ -9,7 +9,11 @@ public interface HakaCategory {
 	/**
 	 * @param location
 	 */
+<<<<<<< HEAD
 	void setStadiumLocation();
+=======
+	void setStadiumLocation(String location);
+>>>>>>> branch 'master' of https://github.com/VladimirVulpe/haka
 
 	/**
 	 * @return
