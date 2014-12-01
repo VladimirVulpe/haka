@@ -181,4 +181,10 @@ public class HakaCharacteristics extends HakaCategoryAbstract {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void setStadiumLocation() {
+		// TODO Auto-generated method stub
+		
+	}
 }

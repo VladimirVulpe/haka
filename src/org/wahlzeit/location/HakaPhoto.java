@@ -20,6 +20,14 @@ public class HakaPhoto extends Photo {
 			HakaTeamMembers.Member1, HakaStadium.Stadium1, "Springbok",
 			HakaTeamMembers.Member21, HakaTeamMembers.Member11, getLocation());
 	
+	/**
+	 *TO DO 
+	 *TO DO 
+	 *TO DO
+	 * 
+	 */
+	Player player  =  Player.getInstance(04, "Jimmy", "Cowan", false, false);
+	
 
 	public static final String VERSION = "version"; // "Ka Mate", "Kapa o Pango"
 	public static final String NICKNAME = "nickname"; // All Blacks
@@ -89,4 +97,12 @@ public class HakaPhoto extends Photo {
 		rset.updateString(OPPONENT, opponent);
 		rset.updateString(WORDS, words);
 	}
+	
+	/**
+	 * Vorlesung
+	 * SetFrog()
+	 * incWriteCount(); --> dirty bit, hiermit wird festgestellt welches element in der DB abgespeichert/aktualisiert werden soll --> setFrog(), nicht getFrog() 
+	 * persistenz protocol --> readOn, writeOn
+	 *
+	 */
 }
