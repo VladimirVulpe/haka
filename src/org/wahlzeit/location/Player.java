@@ -1,7 +1,6 @@
 package org.wahlzeit.location;
 
 import java.io.Serializable;
-import java.util.HashMap;
 
 /**
  * @author Vladimir Vulpe
