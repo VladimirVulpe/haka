@@ -111,13 +111,8 @@ public class Photo extends DataObject {
 	 * 
 	 */
 	protected Location location;
-<<<<<<< HEAD
 	protected String locationCode = "-25.461352, 30.929683";// "MOZ 23DD.4Z4"; //  "-25.461352, 30.929683"; // = new Scanner(System.in).nextLine(); 
-=======
-	protected String locationCode = "-25.461352, 30.929683"; // "MOZ 23DD.4Z4"; //  "-25.461352, 30.929683"; // = new Scanner(System.in).nextLine(); 
->>>>>>> branch 'master' of https://github.com/VladimirVulpe/haka
-	
-	
+
 
 	/**
 	 * 

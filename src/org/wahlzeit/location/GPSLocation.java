@@ -11,7 +11,6 @@ import com.mapcode.Mapcode;
 import com.mapcode.MapcodeCodec;
 import com.mapcode.Point;
 import com.mapcode.UnknownMapcodeException;
-import com.mapcode.UnknownTerritoryException;
 
 public class GPSLocation extends LocationAbstract {
 

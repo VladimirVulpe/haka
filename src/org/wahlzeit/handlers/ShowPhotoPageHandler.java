@@ -98,6 +98,8 @@ public class ShowPhotoPageHandler extends AbstractWebPageHandler implements WebF
 			page.addString(Photo.DESCRIPTION, getPhotoSummary(us, photo));
 			page.addString(Photo.KEYWORDS, tags.asString(false, ','));
 
+			page.addString(Photo.LOCATION, "GPS: or Mapcode: ");
+			
 			us.addDisplayedPhoto(photo);
 		}
 		
