@@ -21,8 +21,6 @@
 package org.wahlzeit.model;
 
 import java.sql.*;
-import java.util.List;
-import java.util.Scanner;
 import java.net.*;
 
 import org.wahlzeit.location.GPSLocation;
@@ -33,8 +31,6 @@ import com.mapcode.UnknownMapcodeException;
 
 import org.wahlzeit.services.*;
 import org.wahlzeit.utils.*;
-
-import com.mapcode.UnknownMapcodeException;
 
 /**
  * A photo represents a user-provided (uploaded) photo.
@@ -62,6 +58,8 @@ public class Photo extends DataObject {
 	public static final String IS_INVISIBLE = "isInvisible";
 	public static final String UPLOADED_ON = "uploadedOn";
 	public static final String LOCATION = "location";
+	public static double LATITUDE;
+	public static double LONGITUDE;
 
 	/**
 	 * 
@@ -111,8 +109,8 @@ public class Photo extends DataObject {
 	 * 
 	 */
 	protected Location location;
-	protected String locationCode = "-25.461352, 30.929683";// "MOZ 23DD.4Z4"; //  "-25.461352, 30.929683"; // = new Scanner(System.in).nextLine(); 
-
+	protected String locationCode = "-36.874388,174.744713"; //"-36.874388,174.744713"; // "MOZ 23DD.4Z4";//
+	
 
 	/**
 	 * 
@@ -180,9 +178,9 @@ public class Photo extends DataObject {
 		tags = new Tags(rset.getString("tags"));
 
 		status = PhotoStatus.getFromInt(rset.getInt("status"));
-		
-		locationCode = rset.getString("location"); // get locationCode data from db
-		
+
+		locationCode = rset.getString("location"); // get location data from db
+
 		praiseSum = rset.getInt("praise_sum");
 		noVotes = rset.getInt("no_votes");
 
@@ -512,13 +510,16 @@ public class Photo extends DataObject {
 		Location gpsLoc = new GPSLocation();
 		Location mapcLoc = new MapCodeLocation();
 
-		
 		if (gpsLoc.doGetLocationType(this.locationCode)) {
 
 			try {
 				gpsLoc.setLocation(this.locationCode);
-				return String.valueOf(gpsLoc.getLatitude()) + ","
-						+ String.valueOf(gpsLoc.getLongitude());
+
+				setLatitude(gpsLoc.getLatitude());
+				setLongitude(gpsLoc.getLongitude());
+
+				return getLatitude() + "," + getLongitude();
+
 			} catch (IllegalArgumentException e) {
 				e.printStackTrace();
 			} catch (Exception e) {
@@ -526,7 +527,8 @@ public class Photo extends DataObject {
 			}
 
 		} else {
-			mapcLoc.setLocation(Double.parseDouble(this.locationCode.split(",")[0]),
+			mapcLoc.setLocation(
+					Double.parseDouble(this.locationCode.split(",")[0]),
 					Double.parseDouble(this.locationCode.split(",")[1]));
 			return mapcLoc.getMapCode();
 		}
@@ -536,8 +538,42 @@ public class Photo extends DataObject {
 
 	public void setLocation(Location location) {
 		this.location = location;
-		
+
 		assert (this.location == location) : "Locations does not coincide!";
+		
+//		incWriteCount();
+	}
+
+	public void setLatitude(double latitude) {
+		Photo.LATITUDE = latitude;
+
+		assert (Photo.LATITUDE == latitude) : "Latitude values does not coincide";
+	}
+
+	public String getLatitude() {
+		assert (Photo.LATITUDE != 0) : "Latitude values have to be not 0";
+
+		return String.valueOf(Photo.LATITUDE);
+	}
+
+	public void setLongitude(double longitude) {
+		Photo.LONGITUDE = longitude;
+
+		assert (Photo.LONGITUDE == longitude) : "Longitude values does not coincide";
+	}
+
+	public String getLongitude() {
+		assert (Photo.LONGITUDE != 0) : "Longitude values have to be not 0";
+
+		return String.valueOf(Photo.LONGITUDE);
+	}
+	
+	public void setLocationCode(String locCode){
+		this.locationCode = locCode;
+	}
+	
+	public String getLocationCode(){
+		return this.locationCode;
 	}
 
 	/**

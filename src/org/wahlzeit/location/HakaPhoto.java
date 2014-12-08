@@ -12,42 +12,31 @@ import org.wahlzeit.model.PhotoId;
  */
 public class HakaPhoto extends Photo {
 
-	/**
-	 * HakaVersion version, HakaTeamMembers members, HakaStadium stadium, String
-	 * opponent, HakaTeamMembers captain, HakaTeamMembers leader
-	 */
-	HakaCategory hc = new HakaCharacteristics(HakaVersion.Ka_Mate,
-			HakaTeamMembers.Member1, HakaStadium.Stadium1, "Springbok",
-			HakaTeamMembers.Member21, HakaTeamMembers.Member11, getLocation());
-	
+	AbstractGame abstractgame = new Game();
 
-	/**
-	 *TO DO 
-	 *TO DO 
-	 *TO DO
-	 * 
-	 */
-//	Player player  =  Player.getInstance(04, "Jimmy", "Cowan", false, false);
-	
+	IHaka IHaka = abstractgame.createHaka();
+    IStadium IStadium = abstractgame.createStadium();
+    IOpponent IOpponent = abstractgame.createOpponent();
+    ITeam ITeam = abstractgame.createTeam(); 
 
-	public static final String VERSION = "version"; // "Ka Mate", "Kapa o Pango"
-	public static final String NICKNAME = "nickname"; // All Blacks
-	public static final String STADIUM = "stadium"; // Eden Park, Westpack
-													// Stadium, Jade Stadium
-	public static final String LEADER = "leader"; // Liam Messam, Richie McCaw
-	public static final String CAPTAIN = "captain"; // Richie McCaw
+	public static final String VERSION = "version"; 
+	public static final String NICKNAME = "nickname"; 
+	public static final String STADIUM = "stadium"; 
+	public static final String LEADER = "leader"; 
+	public static final String CAPTAIN = "captain";
 	public static final String TEAMMEMBERS = "teammembers";
 	public static final String OPPONENT = "opponent";
-	public static final String WORDS = "words"; // Kapa o Pango kia whakawhenua
+	public static final String WORDS = "words";
 
-	protected String version = hc.getVersionAndContent()[0];
-	protected String nickname = hc.getTeamNickname();
-	protected String stadium = hc.getStadium();
-	protected String leader = hc.getLeader();
-	protected String captain = hc.getCaptain();
-	protected String teammembers = hc.getTeamMembers();
-	protected String opponent = hc.getOpponent();
-	protected String words = hc.getVersionAndContent()[1];
+	protected String nickname = "AllBlacks";
+	protected String version = IHaka.getHakaVersion();
+	protected String words = IHaka.getHakaContent();
+	protected String stadium = IStadium.getStadiumName();
+	protected String leader = ITeam.getLeader();
+	protected String captain = ITeam.getCaptain();
+	protected String teammembers = ITeam.getAllPlayers();
+	protected String opponent = IOpponent.getOpponent();
+	
 
 	/**
 	 * 
@@ -98,13 +87,4 @@ public class HakaPhoto extends Photo {
 		rset.updateString(OPPONENT, opponent);
 		rset.updateString(WORDS, words);
 	}
-	
-	/**
-	 * Vorlesung
-	 * SetFrog()
-	 * incWriteCount(); --> dirty bit, hiermit wird festgestellt welches element in der DB abgespeichert/aktualisiert werden soll --> setFrog(), nicht getFrog() 
-	 * persistenz protocol --> readOn, writeOn
-	 *
-	 */
-	
 }

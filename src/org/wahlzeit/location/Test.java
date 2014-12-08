@@ -2,29 +2,18 @@ package org.wahlzeit.location;
 
 public class Test {
 
-	private int c = 0; 
 	
-	public synchronized void increment (){
-		c++;
-	}
-	
-	public synchronized void decrement (){
-		c--;
-	}
-	
-	public synchronized int value(){
-		return c; 
-	}
-	
-	public static void main(final String[] args){
-		Test test = new Test(); 
+	public static void main(final String[] args) {
 		
-		test.increment();
-		
-		System.out.println(test.value());
-		
-		test.decrement();
-		
-		System.out.println(test.value());
+		AbstractGame abstractgame = new Game();
+        
+        IHaka haka = abstractgame.createHaka();
+        IStadium stadium = abstractgame.createStadium();
+        IOpponent opponent = abstractgame.createOpponent();
+        ITeam team = abstractgame.createTeam(); 
+        
+        System.out.println(haka.getHakaVersion());
+        System.out.println(haka.getHakaContent());
+        System.out.println(team.getAllPlayers());
 	}
 }

@@ -1,7 +1,4 @@
 /**
- * 
- */
-/**
  * @author Vulpe Vladimir
  *
  */
@@ -9,13 +6,14 @@ package org.wahlzeit.location;
 
 import com.mapcode.Mapcode;
 import com.mapcode.MapcodeCodec;
-import com.mapcode.Point;
 import com.mapcode.UnknownMapcodeException;
+
 
 public class MapCodeLocation extends LocationAbstract {
 
 	private String MAPCODE = "";
 
+	
 	/**
 	 * @param mapCode
 	 */
@@ -32,7 +30,8 @@ public class MapCodeLocation extends LocationAbstract {
 	}
 
 	@Override
-	protected void doSetLocation(double latitude, double longitude) {
+	protected void doSetLocation(double latitude, double longitude)  {
+		
 		Mapcode mapCodeElement = MapcodeCodec.encode(latitude, longitude)
 				.get(0);
 		doSetMapCode(mapCodeElement.getTerritory().toString() + " "
@@ -45,12 +44,14 @@ public class MapCodeLocation extends LocationAbstract {
 	}
 
 	@Override
-	protected double doGetLatitude() throws IllegalArgumentException, UnknownMapcodeException {
+	protected double doGetLatitude() throws IllegalArgumentException,
+			UnknownMapcodeException {
 		return MapcodeCodec.decode(doGetMapCode()).getLatDeg();
 	}
 
 	@Override
-	protected double doGetLongitude() throws IllegalArgumentException, UnknownMapcodeException {
+	protected double doGetLongitude() throws IllegalArgumentException,
+			UnknownMapcodeException {
 		return MapcodeCodec.decode(doGetMapCode()).getLonDeg();
 	}
 

@@ -22,8 +22,6 @@ package org.wahlzeit.services;
 
 import java.sql.*;
 
-import com.mapcode.UnknownMapcodeException;
-
 /**
  * A Persistent object is one that can be read from and written to a RDMBS.
  * Also, it has a write count, which serves as a dirty flag.
@@ -58,15 +56,18 @@ public interface Persistent {
 	 */
 	public void readFrom(ResultSet rset) throws SQLException;
 	
+	
 	/**
-	 * @throws UnknownMapcodeException 
-	 * @throws IllegalArgumentException 
-	 * 
+	 * @param rset
+	 * @throws SQLException
 	 */
 	public void writeOn(ResultSet rset) throws SQLException;
 	
+	
 	/**
-	 * 
+	 * @param stmt
+	 * @param pos
+	 * @throws SQLException
 	 */
 	public void writeId(PreparedStatement stmt, int pos) throws SQLException;
 	

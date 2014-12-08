@@ -69,13 +69,15 @@ public class GPSLocation extends LocationAbstract {
 		Point GPSCoordinates = MapcodeCodec.decode(mapCode);
 		doSetLatitude(GPSCoordinates.getLatDeg());
 		doSetLongitude(GPSCoordinates.getLonDeg());
+		
+
 	}
 
 	@Override
 	protected String doGetMapCode() {
-		Mapcode mapCodeElement = MapcodeCodec.encode(doGetLatitude(), doGetLongitude())
-				.get(0);
-		
+		Mapcode mapCodeElement = MapcodeCodec.encode(doGetLatitude(),
+				doGetLongitude()).get(0);
+
 		return mapCodeElement.getTerritory().toString() + " "
 				+ mapCodeElement.getMapcode().toString();
 	}

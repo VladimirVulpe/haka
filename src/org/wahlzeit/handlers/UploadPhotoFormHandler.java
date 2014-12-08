@@ -23,6 +23,9 @@ package org.wahlzeit.handlers;
 import java.util.*;
 import java.io.*;
 
+import org.wahlzeit.location.GPSLocation;
+import org.wahlzeit.location.Location;
+import org.wahlzeit.location.MapCodeLocation;
 import org.wahlzeit.model.*;
 import org.wahlzeit.services.*;
 import org.wahlzeit.utils.*;
@@ -34,14 +37,14 @@ import org.wahlzeit.webparts.*;
  *
  */
 public class UploadPhotoFormHandler extends AbstractWebFormHandler {
-	
+
 	/**
 	 *
 	 */
 	public UploadPhotoFormHandler() {
 		initialize(PartUtil.UPLOAD_PHOTO_FORM_FILE, AccessRights.USER);
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -50,23 +53,17 @@ public class UploadPhotoFormHandler extends AbstractWebFormHandler {
 		part.addStringFromArgs(args, UserSession.MESSAGE);
 
 		part.maskAndAddStringFromArgs(args, Photo.TAGS);
+
+		part.maskAndAddStringFromArgs(args, Photo.LOCATION);
 	}
-	
+
 	/**
 	 * 
 	 */
 	protected String doHandlePost(UserSession us, Map args) {
 		String tags = us.getAndSaveAsString(args, Photo.TAGS);
+		String locationCode = us.getAndSaveAsString(args, Photo.LOCATION);
 
-		double latitude, longitude; 
-		
-		latitude = Double.parseDouble(us.getAndSaveAsString(args, Photo.LOCATION));
-		
-//		System.out.println();
-//		System.out.wait();
-		
-		
-		
 		if (!StringUtil.isLegalTagsString(tags)) {
 			us.setMessage(us.cfg().getInputIsInvalid());
 			return PartUtil.UPLOAD_PHOTO_PAGE_NAME;
@@ -78,19 +75,21 @@ public class UploadPhotoFormHandler extends AbstractWebFormHandler {
 			File file = new File(sourceFileName);
 			Photo photo = pm.createPhoto(file);
 
-			String targetFileName = SysConfig.getBackupDir().asString() + photo.getId().asString();
+			String targetFileName = SysConfig.getBackupDir().asString()
+					+ photo.getId().asString();
 			createBackup(sourceFileName, targetFileName);
-		
+
 			User user = (User) us.getClient();
-			user.addPhoto(photo); 
-			
+			user.addPhoto(photo);
+
 			photo.setTags(new Tags(tags));
+
+			Location gps = new GPSLocation();
 			
-			/**
-			 * TO DO
-			 * location
-			 */
-//			photo.setLocation("MOZ 23DD.4Z4");
+			//to do
+			//set location
+//			us.getAndSaveAsString(args, photo.setLocationCode(locationCode));
+
 
 			doHandleHakaPhoto(photo, us, args);
 			pm.savePhoto(photo);
@@ -98,18 +97,17 @@ public class UploadPhotoFormHandler extends AbstractWebFormHandler {
 			StringBuffer sb = UserLog.createActionEntry("UploadPhoto");
 			UserLog.addCreatedObject(sb, "Photo", photo.getId().asString());
 			UserLog.log(sb);
-			
-			us.setTwoLineMessage(us.cfg().getPhotoUploadSucceeded(), us.cfg().getKeepGoing());
+
+			us.setTwoLineMessage(us.cfg().getPhotoUploadSucceeded(), us.cfg()
+					.getKeepGoing());
 		} catch (Exception ex) {
 			SysLog.logThrowable(ex);
 			us.setMessage(us.cfg().getPhotoUploadFailed());
 		}
-		
+
 		return PartUtil.UPLOAD_PHOTO_PAGE_NAME;
 	}
-	
-	
-	
+
 	/**
 	 * 
 	 */
@@ -122,12 +120,11 @@ public class UploadPhotoFormHandler extends AbstractWebFormHandler {
 			// @FIXME IO.copy(inputStream, outputStream);
 		} catch (Exception ex) {
 			SysLog.logSysInfo("could not create backup file of photo");
-			SysLog.logThrowable(ex);			
+			SysLog.logThrowable(ex);
 		}
 	}
-	
-	
-	private void doHandleHakaPhoto (Photo photo, UserSession us, Map args){
-		
+
+	private void doHandleHakaPhoto(Photo photo, UserSession us, Map args) {
+
 	}
 }

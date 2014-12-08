@@ -4,21 +4,7 @@
  */
 package org.wahlzeit.location;
 
-import com.mapcode.Mapcode;
-import com.mapcode.MapcodeCodec;
-import com.mapcode.ParentTerritory;
-import com.mapcode.Point;
-import com.mapcode.Territory;
 import com.mapcode.UnknownMapcodeException;
-import com.mapcode.UnknownTerritoryException;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
-
-import org.apache.sanselan.ImageReadException;
-import org.apache.sanselan.ImageWriteException;
-
 
 public abstract class LocationAbstract implements Location {
 
@@ -27,6 +13,7 @@ public abstract class LocationAbstract implements Location {
 	 * 
 	 * @param double latitude
 	 * @param double longitude
+	 * @throws ClassNotFoundException 
 	 */
 	protected abstract void doSetLocation(double latitude, double longitude);
 
@@ -35,6 +22,7 @@ public abstract class LocationAbstract implements Location {
 	 * 
 	 * @param double latitude
 	 * @param double longitude
+	 * @throws ClassNotFoundException 
 	 */
 	public final void setLocation(double latitude, double longitude) {
 
@@ -48,9 +36,10 @@ public abstract class LocationAbstract implements Location {
 	 *            mapCode
 	 * @throws UnknownMapcodeException
 	 * @throws IllegalArgumentException
+	 * @throws Exception 
 	 */
 	protected abstract void doSetLocation(String mapCode)
-			throws IllegalArgumentException, UnknownMapcodeException;
+			throws IllegalArgumentException, Exception;
 
 	/**
 	 * sets the location as MapCode
@@ -61,7 +50,7 @@ public abstract class LocationAbstract implements Location {
 	 * @throws IllegalArgumentException
 	 */
 	public final void setLocation(String mapCode)
-			throws IllegalArgumentException, UnknownMapcodeException {
+			throws IllegalArgumentException, Exception {
 
 		doSetLocation(mapCode);
 	}

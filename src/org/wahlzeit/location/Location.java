@@ -16,6 +16,7 @@ public interface Location {
 	 * sets the GPS location
 	 * @param double latitude 
 	 * @param double longitude 
+	 * @throws ClassNotFoundException 
 	 */
 	void setLocation(double latitude, double longitude);
 		
@@ -26,8 +27,9 @@ public interface Location {
 	 * @param String mapCode
 	 * @throws UnknownMapcodeException 
 	 * @throws IllegalArgumentException 
+	 * @throws Exception 
 	 */
-	void setLocation (String mapCode) throws IllegalArgumentException, UnknownMapcodeException;
+	void setLocation (String mapCode) throws IllegalArgumentException, Exception;
 	
 	
 	

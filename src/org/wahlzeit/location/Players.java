@@ -6,7 +6,7 @@ import java.io.Serializable;
  * @author Vladimir Vulpe
  *
  */
- public final class Player implements Serializable {
+ public final class Players implements Serializable {
 
 	/**
 	 * 
@@ -17,7 +17,7 @@ import java.io.Serializable;
 	private static boolean captain = false;
 	private static boolean leader = false;
 
-	private Player() {
+	private Players() {
 	}
 
 	/**
@@ -26,19 +26,19 @@ import java.io.Serializable;
 	 * @param captain
 	 * @param leader
 	 */
-	private Player(int shirtnumber, String fullname, boolean captain,
+	private Players(int shirtnumber, String fullname, boolean captain,
 			boolean leader) {
-		Player.shirtnumber = shirtnumber;
-		Player.fullname = fullname;
-		Player.captain = captain;
-		Player.leader = leader;
+		Players.shirtnumber = shirtnumber;
+		Players.fullname = fullname;
+		Players.captain = captain;
+		Players.leader = leader;
 	}
 
 	/**
 	 * internal private class will be initialized in Player.getInstance()
 	 */
 	private static final class InstanceHolder {
-		public static final Player INSTANCE = new Player(shirtnumber, fullname,
+		public static final Players INSTANCE = new Players(shirtnumber, fullname,
 				captain, leader);
 	}
 
@@ -50,7 +50,7 @@ import java.io.Serializable;
 	 * @param leader
 	 * @return
 	 */
-	public static Player getInstance(int shirtnumber, String forename,
+	public static Players getInstance(int shirtnumber, String forename,
 			String lastname, boolean captain, boolean leader) {
 
 		return InstanceHolder.INSTANCE;
@@ -60,28 +60,28 @@ import java.io.Serializable;
 	 * gets player fullname
 	 */
 	public String getFullname() {
-		return Player.fullname;
+		return Players.fullname;
 	}
 
 	/**
 	 * gets player ShirtNr
 	 */
 	public int getShirtNumber() {
-		return Player.shirtnumber;
+		return Players.shirtnumber;
 	}
 
 	/**
 	 * gets a reply if the chosen player is a squad captain
 	 */
 	public boolean isCaptain() {
-		return Player.captain;
+		return Players.captain;
 	}
 
 	/**
 	 * gets a reply if the chosen player is a haka leader
 	 */
 	public boolean isLeader() {
-		return Player.leader;
+		return Players.leader;
 	}
 
 	/**
@@ -89,7 +89,7 @@ import java.io.Serializable;
 	 * 
 	 * @param otherPlayer
 	 */
-	public boolean equals(Player otherPlayer) {
+	public boolean equals(Players otherPlayer) {
 		return (this.hashCode() == otherPlayer.hashCode());
 	}
 }
