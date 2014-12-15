@@ -12,17 +12,19 @@ import org.wahlzeit.model.PhotoId;
  */
 public class HakaPhoto extends Photo {
 
-	AbstractGame abstractgame = new Game();
+	GameFactory abstractgame = new Game(new GameType(HakaVersion.Ka_Mate,
+			HakaTeamMembers.Member30, HakaTeamMembers.Member11,
+			HakaStadium.Stadium2, "Australia"));
 
 	IHaka IHaka = abstractgame.createHaka();
-    IStadium IStadium = abstractgame.createStadium();
-    IOpponent IOpponent = abstractgame.createOpponent();
-    ITeam ITeam = abstractgame.createTeam(); 
+	IStadium IStadium = abstractgame.createStadium();
+	IOpponent IOpponent = abstractgame.createOpponent();
+	ITeam ITeam = abstractgame.createTeam();
 
-	public static final String VERSION = "version"; 
-	public static final String NICKNAME = "nickname"; 
-	public static final String STADIUM = "stadium"; 
-	public static final String LEADER = "leader"; 
+	public static final String VERSION = "version";
+	public static final String NICKNAME = "nickname";
+	public static final String STADIUM = "stadium";
+	public static final String LEADER = "leader";
 	public static final String CAPTAIN = "captain";
 	public static final String TEAMMEMBERS = "teammembers";
 	public static final String OPPONENT = "opponent";
@@ -36,7 +38,6 @@ public class HakaPhoto extends Photo {
 	protected String captain = ITeam.getCaptain();
 	protected String teammembers = ITeam.getAllPlayers();
 	protected String opponent = IOpponent.getOpponent();
-	
 
 	/**
 	 * 
@@ -86,5 +87,35 @@ public class HakaPhoto extends Photo {
 		rset.updateString(TEAMMEMBERS, teammembers);
 		rset.updateString(OPPONENT, opponent);
 		rset.updateString(WORDS, words);
+	}
+	
+	public void setHakaVersion(String hakaVersion){
+		this.version = hakaVersion;
+	}
+	
+	public String getHakaVersion(){
+		return this.version;
+	}
+	
+	public void setCaptain(String captain){
+		this.captain = captain;
+	}
+	
+	public String getCaptain(){
+		return this.captain;
+	}
+	public void setLeader(String leader){
+		this.leader = leader;
+	}
+	
+	public String getLeader(){
+		return this.leader;
+	}
+	public void setStadium(String stadium){
+		this.stadium = stadium;
+	}
+	
+	public String getStadium(){
+		return this.stadium;
 	}
 }
