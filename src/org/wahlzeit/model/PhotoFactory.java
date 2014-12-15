@@ -51,9 +51,11 @@ public class PhotoFactory {
 	}
 	
 	/**
+	 * !!! changed visibility from protected to public !!!
+	 *  
 	 * Method to set the singleton instance of PhotoFactory.
 	 */
-	protected static synchronized void setInstance(PhotoFactory photoFactory) {
+	public static synchronized void setInstance(PhotoFactory photoFactory) {
 		if (instance != null) {
 			throw new IllegalStateException("attempt to initalize PhotoFactory twice");
 		}
@@ -78,21 +80,21 @@ public class PhotoFactory {
 	/**
 	 * @methodtype factory
 	 */
-	public Photo createPhoto() {
+	public HakaPhoto createPhoto() {
 		return new HakaPhoto();
 	}
 	
 	/**
 	 * 
 	 */
-	public Photo createPhoto(PhotoId id) {
+	public HakaPhoto createPhoto(PhotoId id) {
 		return new HakaPhoto(id);
 	}
 	
 	/**
 	 * 
 	 */
-	public Photo createPhoto(ResultSet rs) throws SQLException {
+	public HakaPhoto createPhoto(ResultSet rs) throws SQLException {
 		return new HakaPhoto(rs);
 	}
 	

@@ -1,6 +1,11 @@
 package org.wahlzeit.location;
 
-public interface AbstractGame {
+
+/**
+ * @author Vladimir Vulpe
+ * 
+ */
+public interface GameFactory { 
 
 	/**
 	 * @returns Haka Version and Content

@@ -22,6 +22,7 @@ package org.wahlzeit.handlers;
 
 import java.util.*;
 
+import org.wahlzeit.location.HakaPhoto;
 import org.wahlzeit.model.*;
 import org.wahlzeit.services.*;
 import org.wahlzeit.utils.*;
@@ -81,7 +82,7 @@ public class ShowPhotoPageHandler extends AbstractWebPageHandler implements WebF
 	 * 
 	 */
 	protected void makeWebPageBody(UserSession us, WebPart page) {
-		Photo photo = us.getPhoto();
+		HakaPhoto  photo =  (HakaPhoto) us.getPhoto();
 
 		makeLeftSidebar(us, page);
 
@@ -102,7 +103,10 @@ public class ShowPhotoPageHandler extends AbstractWebPageHandler implements WebF
 			 * 
 			 */
 			page.addString(Photo.LOCATION, "Location: " +photo.getLocation());
-			
+			page.addString(HakaPhoto.VERSION, "Haka Version: " +photo.getHakaVersion());
+			page.addString(HakaPhoto.CAPTAIN, "Captain: " +photo.getCaptain());
+			page.addString(HakaPhoto.LEADER, "Leader: " +photo.getLeader());
+			page.addString(HakaPhoto.STADIUM, "Stadium: " +photo.getStadium());
 			
 			
 			us.addDisplayedPhoto(photo);

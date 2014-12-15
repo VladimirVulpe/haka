@@ -24,6 +24,7 @@ import java.util.*;
 import java.io.*;
 
 import org.wahlzeit.location.GPSLocation;
+import org.wahlzeit.location.HakaPhoto;
 import org.wahlzeit.location.Location;
 import org.wahlzeit.location.MapCodeLocation;
 import org.wahlzeit.model.*;
@@ -62,8 +63,13 @@ public class UploadPhotoFormHandler extends AbstractWebFormHandler {
 	 */
 	protected String doHandlePost(UserSession us, Map args) {
 		String tags = us.getAndSaveAsString(args, Photo.TAGS);
-		String locationCode = us.getAndSaveAsString(args, Photo.LOCATION);
-
+		
+		String locationCode = us.getAndSaveAsString(args, "locationID");
+		String hakaVersion = us.getAndSaveAsString(args, "versionID");
+		String leader = us.getAndSaveAsString(args, "leaderID");
+		String captain = us.getAndSaveAsString(args, "captainID");
+		String stadium = us.getAndSaveAsString(args, "stadiumID");
+		
 		if (!StringUtil.isLegalTagsString(tags)) {
 			us.setMessage(us.cfg().getInputIsInvalid());
 			return PartUtil.UPLOAD_PHOTO_PAGE_NAME;
@@ -73,7 +79,7 @@ public class UploadPhotoFormHandler extends AbstractWebFormHandler {
 			PhotoManager pm = PhotoManager.getInstance();
 			String sourceFileName = us.getAsString(args, "fileName");
 			File file = new File(sourceFileName);
-			Photo photo = pm.createPhoto(file);
+			HakaPhoto photo = (HakaPhoto) pm.createPhoto(file);
 
 			String targetFileName = SysConfig.getBackupDir().asString()
 					+ photo.getId().asString();
@@ -84,11 +90,12 @@ public class UploadPhotoFormHandler extends AbstractWebFormHandler {
 
 			photo.setTags(new Tags(tags));
 
-			Location gps = new GPSLocation();
 			
-			//to do
-			//set location
-//			us.getAndSaveAsString(args, photo.setLocationCode(locationCode));
+			photo.setLocationCode(locationCode);
+			photo.setHakaVersion(hakaVersion);
+			photo.setLeader(leader);
+			photo.setCaptain(captain);
+			photo.setStadium(stadium);
 
 
 			doHandleHakaPhoto(photo, us, args);
