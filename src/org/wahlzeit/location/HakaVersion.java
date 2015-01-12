@@ -10,11 +10,11 @@ public enum HakaVersion {
 	Kapa_o_Pango("Kapa o Pango kia whakawhenua au i ahau! Hi aue, hi! Ko Aotearoa e ngunguru nei! ...");
 
 	private final String name;
-
+	private static final String[] array;
+	
 	private HakaVersion(String s) {
 		name = s;
 
-		
 		assertInvariants();
 	}
 
@@ -29,4 +29,12 @@ public enum HakaVersion {
 	private void assertInvariants() {
 		assert name != null;
 	}
+	
+		
+	static {
+	    array = new String[HakaVersion.values().length];
+	    for (HakaVersion value : HakaVersion.values())
+	        array[value.ordinal()] = value.toString();
+	}
+	public static String[] toArray () { return array; }
 }

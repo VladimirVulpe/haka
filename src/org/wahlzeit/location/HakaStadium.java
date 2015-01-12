@@ -7,7 +7,8 @@ public enum HakaStadium {
 	Stadium3 ("Jade Stadium");
 
 	private final String name;
-
+	private static final String[] array;
+	
 	private HakaStadium(String s) {
 		name = s;
 
@@ -26,4 +27,11 @@ public enum HakaStadium {
 	private void assertInvariants() {
 		assert name != null;
 	}
+	
+	static {
+	    array = new String[HakaStadium.values().length];
+	    for (HakaStadium value : HakaStadium.values())
+	        array[value.ordinal()] = value.toString();
+	}
+	public static String[] toArray () { return array; }
 }

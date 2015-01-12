@@ -27,4 +27,7 @@ public interface GameFactory {
 	 *          Springbok)
 	 */
 	public IOpponent createOpponent();
+
+	
+	
 }

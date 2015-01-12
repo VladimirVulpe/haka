@@ -115,6 +115,9 @@ public class ShowPhotoPageHandler extends AbstractWebPageHandler implements WebF
 		makeRightSidebar(us, page);
 	}
 	
+	
+	
+	
 	/**
 	 * 
 	 */

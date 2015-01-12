@@ -9,27 +9,27 @@ import java.util.Map;
  */
 public class Game implements GameFactory {
 
-	protected GameType gameType; 
-	private Map<String, Game> properties; 
-	public static final Game VOID = GameType.VOID_TYPE.makeGameInstance() ;
-	
+	protected GameType gameType;
+	private Map<String, Game> properties;
+	public static final Game VOID = GameType.VOID_TYPE.makeGameInstance();
+
 	/**
 	 * @param gametype
 	 */
 	public Game(GameType gametype) {
-		this.gameType = gametype; 
+		this.gameType = gametype;
 		this.properties = new Hashtable<String, Game>();
 	}
-	
+
 	/**
 	 * @param name
 	 * @param game
 	 */
-	public void put(String opponent, Game game){
+	public void put(String opponent, Game game) {
 		this.properties.put(opponent, game);
 		this.gameType.put(opponent, game.getGameType());
 	}
-	
+
 	/**
 	 * @param name
 	 * @param game
@@ -37,22 +37,21 @@ public class Game implements GameFactory {
 	 */
 	public void set(String opponent, Game game) throws Exception {
 		GameType gametype = this.gameType.get(opponent);
-		
-		if(!gametype.equals(game.getGameType())){
-			throw new Exception ("Incompatible Types!");
+
+		if (!gametype.equals(game.getGameType())) {
+			throw new Exception("Incompatible Types!");
 		}
-		
+
 		properties.put(opponent, game);
 	}
-	
-	
+
 	/**
 	 * @return
 	 */
-	public GameType getGameType(){
+	public GameType getGameType() {
 		return this.gameType;
 	}
-	
+
 	@Override
 	public IHaka createHaka() {
 		return new Haka(this.gameType.getHakaVersion());
@@ -72,4 +71,5 @@ public class Game implements GameFactory {
 	public IOpponent createOpponent() {
 		return new Opponent(this.gameType.getOpponent());
 	}
+
 }

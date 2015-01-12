@@ -25,6 +25,9 @@ import java.io.*;
 
 import org.wahlzeit.location.GPSLocation;
 import org.wahlzeit.location.HakaPhoto;
+import org.wahlzeit.location.HakaStadium;
+import org.wahlzeit.location.HakaTeamMembers;
+import org.wahlzeit.location.HakaVersion;
 import org.wahlzeit.location.Location;
 import org.wahlzeit.location.MapCodeLocation;
 import org.wahlzeit.model.*;
@@ -56,6 +59,29 @@ public class UploadPhotoFormHandler extends AbstractWebFormHandler {
 		part.maskAndAddStringFromArgs(args, Photo.TAGS);
 
 		part.maskAndAddStringFromArgs(args, Photo.LOCATION);
+
+		String hakaVersion = "";
+		String teamMembers = "";
+		String hakaStadium = "";
+
+				
+		for (String version : HakaVersion.toArray()) {
+			hakaVersion += "<option " +"value=\"" + version + "\"" +" selected" +">" +version +"</option>";
+		}
+		
+		for (String teammember : HakaTeamMembers.toArray()) {
+			teamMembers += "<option " +"value=\"" + teammember + "\"" +" selected" +">" +teammember +"</option>";
+		}
+		
+		for (String stadium : HakaStadium.toArray()) {
+			hakaStadium += "<option " +"value=\"" + stadium + "\"" +" selected" +">" +stadium +"</option>";
+		}
+		
+
+		part.addString("version", hakaVersion);
+		part.addString("leader", teamMembers);
+		part.addString("captain", teamMembers);
+		part.addString("stadium", hakaStadium);
 	}
 
 	/**
@@ -63,13 +89,13 @@ public class UploadPhotoFormHandler extends AbstractWebFormHandler {
 	 */
 	protected String doHandlePost(UserSession us, Map args) {
 		String tags = us.getAndSaveAsString(args, Photo.TAGS);
-		
+
 		String locationCode = us.getAndSaveAsString(args, "locationID");
 		String hakaVersion = us.getAndSaveAsString(args, "versionID");
 		String leader = us.getAndSaveAsString(args, "leaderID");
 		String captain = us.getAndSaveAsString(args, "captainID");
 		String stadium = us.getAndSaveAsString(args, "stadiumID");
-		
+
 		if (!StringUtil.isLegalTagsString(tags)) {
 			us.setMessage(us.cfg().getInputIsInvalid());
 			return PartUtil.UPLOAD_PHOTO_PAGE_NAME;
@@ -90,13 +116,11 @@ public class UploadPhotoFormHandler extends AbstractWebFormHandler {
 
 			photo.setTags(new Tags(tags));
 
-			
 			photo.setLocationCode(locationCode);
 			photo.setHakaVersion(hakaVersion);
 			photo.setLeader(leader);
 			photo.setCaptain(captain);
 			photo.setStadium(stadium);
-
 
 			doHandleHakaPhoto(photo, us, args);
 			pm.savePhoto(photo);
