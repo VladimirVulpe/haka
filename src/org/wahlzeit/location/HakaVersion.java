@@ -12,21 +12,24 @@ public enum HakaVersion {
 	private final String name;
 	private static final String[] array;
 	
-	private HakaVersion(String s) {
+	private HakaVersion(String s) throws IllegalArgumentException,
+	StringIndexOutOfBoundsException {
 		name = s;
 
 		assertInvariants();
 	}
 
-	public boolean equalsName(String otherName) {
+	public boolean equalsName(String otherName) throws IllegalArgumentException,
+	StringIndexOutOfBoundsException {
 		return (otherName == null) ? false : name.equals(otherName);
 	}
 
-	public String toString() {
+	public String toString() throws IllegalArgumentException,
+	StringIndexOutOfBoundsException {
 		return name;
 	}
 	
-	private void assertInvariants() {
+	private void assertInvariants() throws AssertionError {
 		assert name != null;
 	}
 	

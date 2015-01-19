@@ -64,6 +64,7 @@ public class UploadPhotoFormHandler extends AbstractWebFormHandler {
 		String teamMembers = "";
 		String hakaStadium = "";
 
+		try{
 				
 		for (String version : HakaVersion.toArray()) {
 			hakaVersion += "<option " +"value=\"" + version + "\"" +" selected" +">" +version +"</option>";
@@ -82,6 +83,13 @@ public class UploadPhotoFormHandler extends AbstractWebFormHandler {
 		part.addString("leader", teamMembers);
 		part.addString("captain", teamMembers);
 		part.addString("stadium", hakaStadium);
+		} catch (IllegalArgumentException e) {
+			throw new IllegalArgumentException("");
+		} catch (IllegalStateException e) {
+			throw new IllegalStateException("");
+		} catch (AssertionError e) {
+			throw new AssertionError("");
+		}
 	}
 
 	/**

@@ -33,30 +33,31 @@ import org.wahlzeit.webparts.*;
  * @author dirkriehle
  *
  */
-public class ShowPhotoPageHandler extends AbstractWebPageHandler implements WebFormHandler {
-	
+public class ShowPhotoPageHandler extends AbstractWebPageHandler implements
+		WebFormHandler {
+
 	/**
 	 * 
 	 */
 	public ShowPhotoPageHandler() {
 		initialize(PartUtil.SHOW_PHOTO_PAGE_FILE, AccessRights.GUEST);
 	}
-	
+
 	/**
 	 * 
 	 */
 	protected String doHandleGet(UserSession us, String link, Map args) {
 		Photo photo = null;
-		
+
 		String arg = us.getAsString(args, "prior");
 		if (!StringUtil.isNullOrEmptyString(arg)) {
 			us.setPriorPhoto(PhotoManager.getPhoto(arg));
 		}
-		
+
 		if (!link.equals(PartUtil.SHOW_PHOTO_PAGE_NAME)) {
 			photo = PhotoManager.getPhoto(link);
 		}
-		
+
 		if (photo == null) {
 			PhotoManager photoManager = PhotoManager.getInstance();
 			PhotoFilter filter = us.getPhotoFilter();
@@ -67,10 +68,10 @@ public class ShowPhotoPageHandler extends AbstractWebPageHandler implements WebF
 		}
 
 		us.setPhoto(photo);
-		
+
 		return link;
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -82,48 +83,57 @@ public class ShowPhotoPageHandler extends AbstractWebPageHandler implements WebF
 	 * 
 	 */
 	protected void makeWebPageBody(UserSession us, WebPart page) {
-		HakaPhoto  photo =  (HakaPhoto) us.getPhoto();
+		HakaPhoto photo = (HakaPhoto) us.getPhoto();
 
 		makeLeftSidebar(us, page);
 
 		makePhoto(us, page);
-		
-		if (photo != null && photo.isVisible()) {
-			makePhotoCaption(us, page);
-			makeEngageGuest(us, page);
 
-			String photoId = photo.getId().asString();
-			page.addString(Photo.ID, photoId);
+		try {
+			if (photo != null && photo.isVisible()) {
+				makePhotoCaption(us, page);
+				makeEngageGuest(us, page);
 
-			Tags tags = photo.getTags();
-			page.addString(Photo.DESCRIPTION, getPhotoSummary(us, photo));
-			page.addString(Photo.KEYWORDS, tags.asString(false, ','));
+				String photoId = photo.getId().asString();
+				page.addString(Photo.ID, photoId);
 
-			/**
+				Tags tags = photo.getTags();
+				page.addString(Photo.DESCRIPTION, getPhotoSummary(us, photo));
+				page.addString(Photo.KEYWORDS, tags.asString(false, ','));
+
+				/**
 			 * 
 			 */
-			page.addString(Photo.LOCATION, "Location: " +photo.getLocation());
-			page.addString(HakaPhoto.VERSION, "Haka Version: " +photo.getHakaVersion());
-			page.addString(HakaPhoto.CAPTAIN, "Captain: " +photo.getCaptain());
-			page.addString(HakaPhoto.LEADER, "Leader: " +photo.getLeader());
-			page.addString(HakaPhoto.STADIUM, "Stadium: " +photo.getStadium());
-			
-			
-			us.addDisplayedPhoto(photo);
+				page.addString(Photo.LOCATION,
+						"Location: " + photo.getLocation());
+				page.addString(HakaPhoto.VERSION,
+						"Haka Version: " + photo.getHakaVersion());
+				page.addString(HakaPhoto.CAPTAIN,
+						"Captain: " + photo.getCaptain());
+				page.addString(HakaPhoto.LEADER, "Leader: " + photo.getLeader());
+				page.addString(HakaPhoto.STADIUM,
+						"Stadium: " + photo.getStadium());
+
+				us.addDisplayedPhoto(photo);
+			}
+
+		} catch (IllegalArgumentException e) {
+			throw new IllegalArgumentException("");
+		} catch (IllegalStateException e) {
+			throw new IllegalStateException("");
+		} catch (AssertionError e) {
+			throw new AssertionError("");
 		}
-		
+
 		makeRightSidebar(us, page);
 	}
-	
-	
-	
-	
+
 	/**
 	 * 
 	 */
 	protected void makeLeftSidebar(UserSession us, WebPart page) {
 		WritableList parts = new WritableList();
-		
+
 		Photo photo = us.getPriorPhoto();
 		if (photo != null) {
 			parts.append(makePriorPhotoInfo(us));
@@ -136,10 +146,10 @@ public class ShowPhotoPageHandler extends AbstractWebPageHandler implements WebF
 		parts.append(filterPhotos);
 
 		parts.append(createWebPart(us, PartUtil.LINKS_INFO_FILE));
-		
+
 		page.addWritable("sidebar", parts);
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -148,33 +158,38 @@ public class ShowPhotoPageHandler extends AbstractWebPageHandler implements WebF
 
 		Photo photo = us.getPhoto();
 		if (photo == null) {
-			page.addString("mainWidth", String.valueOf(pagePhotoSize.getMaxPhotoWidth()));
+			page.addString("mainWidth",
+					String.valueOf(pagePhotoSize.getMaxPhotoWidth()));
 			WebPart done = createWebPart(us, PartUtil.DONE_INFO_FILE);
 			page.addWritable(Photo.IMAGE, done);
 			return;
 		}
-		
+
 		Client client = us.getClient();
-		if (!photo.isVisible() && !client.hasModeratorRights() && !us.isPhotoOwner(photo)) {
-			page.addString("mainWidth", String.valueOf(pagePhotoSize.getMaxPhotoWidth()));
+		if (!photo.isVisible() && !client.hasModeratorRights()
+				&& !us.isPhotoOwner(photo)) {
+			page.addString("mainWidth",
+					String.valueOf(pagePhotoSize.getMaxPhotoWidth()));
 			WebPart done = createWebPart(us, PartUtil.HIDDEN_INFO_FILE);
 			page.addWritable(Photo.IMAGE, done);
 			return;
 		}
-		
+
 		PhotoSize maxPhotoSize = photo.getMaxPhotoSize();
-		PhotoSize photoSize = (maxPhotoSize.isSmaller(pagePhotoSize)) ? maxPhotoSize : pagePhotoSize;
-		String imageLink = getPhotoAsRelativeResourcePathString(photo, photoSize);
+		PhotoSize photoSize = (maxPhotoSize.isSmaller(pagePhotoSize)) ? maxPhotoSize
+				: pagePhotoSize;
+		String imageLink = getPhotoAsRelativeResourcePathString(photo,
+				photoSize);
 		page.addString(Photo.IMAGE, HtmlUtil.asImg(HtmlUtil.asPath(imageLink)));
 	}
-	
+
 	/**
 	 * 
 	 */
 	protected void makePhotoCaption(UserSession us, WebPart page) {
 		Photo photo = us.getPhoto();
 		// String photoId = photo.getId().asString();
-			
+
 		WebPart caption = createWebPart(us, PartUtil.CAPTION_INFO_FILE);
 		caption.addString(Photo.CAPTION, getPhotoCaption(us, photo));
 		page.addWritable(Photo.CAPTION, caption);
@@ -188,12 +203,13 @@ public class ShowPhotoPageHandler extends AbstractWebPageHandler implements WebF
 		String photoId = photo.getId().asString();
 
 		WebPart engageGuest = createWebPart(us, PartUtil.ENGAGE_GUEST_FORM_FILE);
-		engageGuest.addString(Photo.LINK, HtmlUtil.asHref(getResourceAsRelativeHtmlPathString(photoId)));
+		engageGuest.addString(Photo.LINK,
+				HtmlUtil.asHref(getResourceAsRelativeHtmlPathString(photoId)));
 		engageGuest.addString(Photo.ID, photoId);
 
 		page.addWritable("engageGuest", engageGuest);
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -209,7 +225,6 @@ public class ShowPhotoPageHandler extends AbstractWebPageHandler implements WebF
 		page.addWritable("praisePhoto", praisePhotoForm);
 	}
 
-	
 	/**
 	 * 
 	 */
@@ -222,7 +237,7 @@ public class ShowPhotoPageHandler extends AbstractWebPageHandler implements WebF
 		result.addString(Photo.PRAISE, photo.getPraiseAsString(us.cfg()));
 		result.addString(Photo.THUMB, getPhotoThumb(us, photo));
 		result.addString(Photo.CAPTION, getPhotoCaption(us, photo));
-			
+
 		us.setPriorPhoto(null); // reset so you don't get repeats
 
 		return result;
@@ -233,7 +248,7 @@ public class ShowPhotoPageHandler extends AbstractWebPageHandler implements WebF
 	 */
 	public String handlePost(UserSession us, Map args) {
 		String result = PartUtil.DEFAULT_PAGE_NAME;
-		
+
 		String id = us.getAndSaveAsString(args, Photo.ID);
 		Photo photo = PhotoManager.getPhoto(id);
 		if (photo != null) {
@@ -248,5 +263,5 @@ public class ShowPhotoPageHandler extends AbstractWebPageHandler implements WebF
 
 		return result;
 	}
-	
+
 }

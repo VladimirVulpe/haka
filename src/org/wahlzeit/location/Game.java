@@ -26,8 +26,17 @@ public class Game implements GameFactory {
 	 * @param game
 	 */
 	public void put(String opponent, Game game) {
-		this.properties.put(opponent, game);
-		this.gameType.put(opponent, game.getGameType());
+		try {
+			this.properties.put(opponent, game);
+			this.gameType.put(opponent, game.getGameType());
+
+		} catch (IllegalArgumentException e) {
+			throw new IllegalArgumentException("");
+		} catch (IllegalStateException e) {
+			throw new IllegalStateException("");
+		} catch (AssertionError e) {
+			throw new AssertionError("");
+		}
 	}
 
 	/**

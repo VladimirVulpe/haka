@@ -27,7 +27,8 @@ import java.io.Serializable;
 	 * @param leader
 	 */
 	private Players(int shirtnumber, String fullname, boolean captain,
-			boolean leader) {
+			boolean leader) throws IllegalArgumentException,
+			StringIndexOutOfBoundsException {
 		Players.shirtnumber = shirtnumber;
 		Players.fullname = fullname;
 		Players.captain = captain;
@@ -80,7 +81,7 @@ import java.io.Serializable;
 	/**
 	 * gets a reply if the chosen player is a haka leader
 	 */
-	public boolean isLeader() {
+	public boolean isLeader()  {
 		return Players.leader;
 	}
 
@@ -89,7 +90,7 @@ import java.io.Serializable;
 	 * 
 	 * @param otherPlayer
 	 */
-	public boolean equals(Players otherPlayer) {
+	public boolean equals(Players otherPlayer) throws IllegalArgumentException {
 		return (this.hashCode() == otherPlayer.hashCode());
 	}
 }

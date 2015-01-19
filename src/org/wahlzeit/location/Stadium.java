@@ -8,7 +8,8 @@ public class Stadium implements IStadium {
 		this(HakaStadium.Stadium1);
 	}
 	
-	public Stadium(HakaStadium stadiumname) {
+	public Stadium(HakaStadium stadiumname) throws IllegalArgumentException,
+	StringIndexOutOfBoundsException {
 		setStadiumName(stadiumname);
 	}
 

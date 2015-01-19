@@ -32,13 +32,16 @@ public class Haka implements IHaka {
 		return Haka.CONTENT;
 	}
 
-	public void setHakaVersion(HakaVersion version) {
+	public void setHakaVersion(HakaVersion version)
+			throws IllegalArgumentException, AssertionError,
+			StringIndexOutOfBoundsException {
 		assert version.name() != null : "Haka version must not be emtpy!";
 
 		Haka.VERSION = version.name();
 	};
 
-	public void setHakaContent(HakaVersion content) {
+	public void setHakaContent(HakaVersion content) throws IllegalArgumentException, AssertionError,
+	StringIndexOutOfBoundsException {
 		assert content.toString() != null : "Haka content must not be emtpy!";
 
 		Haka.CONTENT = content.toString();

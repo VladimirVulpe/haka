@@ -40,15 +40,18 @@ public enum HakaTeamMembers {
 	private final String name;
 	private static final String[] array;
 	
-	private HakaTeamMembers(String s) {
+	private HakaTeamMembers(String s) throws IllegalArgumentException, 
+	StringIndexOutOfBoundsException {
 		name = s;
 	}
 
-	public boolean equalsName(String otherName) {
+	public boolean equalsName(String otherName) throws IllegalArgumentException,
+	StringIndexOutOfBoundsException {
 		return (otherName == null) ? false : name.equals(otherName);
 	}
 
-	public String toString() {
+	public String toString() throws IllegalArgumentException,
+	StringIndexOutOfBoundsException {
 		return name;
 	}
 	

@@ -41,7 +41,7 @@ public class GPSLocation extends LocationAbstract {
 	/**
 	 * @param latitude
 	 */
-	private void doSetLatitude(double latitude) {
+	private void doSetLatitude(double latitude) throws NumberFormatException {
 		this.LATITUDE = latitude;
 	}
 
@@ -52,7 +52,7 @@ public class GPSLocation extends LocationAbstract {
 	/**
 	 * @param longitude
 	 */
-	private void doSetLongitude(double longitude) {
+	private void doSetLongitude(double longitude) throws NumberFormatException {
 		this.LONGITUDE = longitude;
 	}
 

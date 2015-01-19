@@ -19,7 +19,6 @@ public class GameType {
 			HakaTeamMembers.Member30, HakaTeamMembers.Member16,
 			HakaStadium.Stadium3, "Springbok");
 
-	
 	/**
 	 * @param hakaversion
 	 * @param captain
@@ -65,7 +64,15 @@ public class GameType {
 	 * @param gametype
 	 */
 	public void put(String opponent, GameType gametype) {
-		this.propertyGameType.put(opponent, gametype);
+		try {
+			this.propertyGameType.put(opponent, gametype);
+		} catch (IllegalArgumentException e) {
+			throw new IllegalArgumentException("");
+		} catch (IllegalStateException e) {
+			throw new IllegalStateException("");
+		} catch (AssertionError e) {
+			throw new AssertionError("");
+		}
 	}
 
 	/**

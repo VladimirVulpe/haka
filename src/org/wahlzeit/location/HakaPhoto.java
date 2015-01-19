@@ -88,34 +88,40 @@ public class HakaPhoto extends Photo {
 		rset.updateString(OPPONENT, opponent);
 		rset.updateString(WORDS, words);
 	}
-	
-	public void setHakaVersion(String hakaVersion){
+
+	public void setHakaVersion(String hakaVersion)
+			throws StringIndexOutOfBoundsException, IllegalArgumentException {
 		this.version = hakaVersion;
 	}
-	
-	public String getHakaVersion(){
+
+	public String getHakaVersion() {
 		return this.version;
 	}
-	
-	public void setCaptain(String captain){
+
+	public void setCaptain(String captain)
+			throws StringIndexOutOfBoundsException, IllegalArgumentException {
 		this.captain = captain;
 	}
-	
-	public String getCaptain(){
+
+	public String getCaptain() {
 		return this.captain;
 	}
-	public void setLeader(String leader){
+
+	public void setLeader(String leader)
+			throws StringIndexOutOfBoundsException, IllegalArgumentException {
 		this.leader = leader;
 	}
-	
-	public String getLeader(){
+
+	public String getLeader() {
 		return this.leader;
 	}
-	public void setStadium(String stadium){
+
+	public void setStadium(String stadium)
+			throws StringIndexOutOfBoundsException, IllegalArgumentException {
 		this.stadium = stadium;
 	}
-	
-	public String getStadium(){
+
+	public String getStadium() {
 		return this.stadium;
 	}
 }

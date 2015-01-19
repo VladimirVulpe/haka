@@ -8,7 +8,8 @@ public class Opponent implements IOpponent {
 		this("Australien");
 	}
 	
-	public Opponent(String opponent) {
+	public Opponent(String opponent) throws IllegalArgumentException,
+	StringIndexOutOfBoundsException {
 		setOpponent(opponent);
 	}
 

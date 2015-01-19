@@ -27,7 +27,7 @@ public class Team implements ITeam {
 		setAllPlayers();
 	}
 
-	private void setAllPlayers() {
+	private void setAllPlayers() throws ArrayIndexOutOfBoundsException {
 		ALL_PLAYERS = "";
 		for (String member : HakaTeamMembers.toArray()) {
 			if (member != null) {
