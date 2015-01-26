@@ -1,5 +1,6 @@
 package org.wahlzeit.location;
 
+import org.vulpe.myadap.HakaPhoto;
 import org.wahlzeit.model.PhotoFactory;
 
 import junit.framework.TestCase;

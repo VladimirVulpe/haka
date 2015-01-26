@@ -23,13 +23,13 @@ package org.wahlzeit.handlers;
 import java.util.*;
 import java.io.*;
 
-import org.wahlzeit.location.GPSLocation;
-import org.wahlzeit.location.HakaPhoto;
-import org.wahlzeit.location.HakaStadium;
-import org.wahlzeit.location.HakaTeamMembers;
-import org.wahlzeit.location.HakaVersion;
-import org.wahlzeit.location.Location;
-import org.wahlzeit.location.MapCodeLocation;
+import org.vulpe.myadap.GPSLocation;
+import org.vulpe.myadap.HakaPhoto;
+import org.vulpe.myadap.HakaStadium;
+import org.vulpe.myadap.HakaTeamMembers;
+import org.vulpe.myadap.HakaVersion;
+import org.vulpe.myadap.Location;
+import org.vulpe.myadap.MapCodeLocation;
 import org.wahlzeit.model.*;
 import org.wahlzeit.services.*;
 import org.wahlzeit.utils.*;
@@ -110,7 +110,7 @@ public class UploadPhotoFormHandler extends AbstractWebFormHandler {
 		}
 
 		try {
-			PhotoManager pm = PhotoManager.getInstance();
+			PhotoManager pm = PhotoManager.getInstance();	
 			String sourceFileName = us.getAsString(args, "fileName");
 			File file = new File(sourceFileName);
 			HakaPhoto photo = (HakaPhoto) pm.createPhoto(file);

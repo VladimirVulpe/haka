@@ -1,4 +1,4 @@
-package org.wahlzeit.location;
+package org.vulpe.myadap;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

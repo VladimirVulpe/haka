@@ -5,7 +5,7 @@
  * @author Vulpe Vladimir
  *
  */
-package org.wahlzeit.location;
+package org.vulpe.myadap;
 
 import com.mapcode.Mapcode;
 import com.mapcode.MapcodeCodec;

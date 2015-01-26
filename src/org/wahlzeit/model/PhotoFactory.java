@@ -22,7 +22,7 @@ package org.wahlzeit.model;
 
 import java.sql.*;
 
-import org.wahlzeit.location.HakaPhoto;
+import org.vulpe.myadap.HakaPhoto;
 import org.wahlzeit.services.*;
 
 /**

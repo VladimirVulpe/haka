@@ -1,4 +1,4 @@
-package org.wahlzeit.location;
+package org.vulpe.myadap;
 
 public interface IHaka {
 

@@ -23,9 +23,9 @@ package org.wahlzeit.model;
 import java.sql.*;
 import java.net.*;
 
-import org.wahlzeit.location.GPSLocation;
-import org.wahlzeit.location.Location;
-import org.wahlzeit.location.MapCodeLocation;
+import org.vulpe.myadap.GPSLocation;
+import org.vulpe.myadap.Location;
+import org.vulpe.myadap.MapCodeLocation;
 
 import com.mapcode.UnknownMapcodeException;
 
